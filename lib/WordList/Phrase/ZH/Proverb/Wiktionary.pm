@@ -1,4 +1,4 @@
->package WordList::Phrase::ZH::Proverb::Wiktionary;
+package WordList::Phrase::ZH::Proverb::Wiktionary;
 
 # DATE
 # VERSION
