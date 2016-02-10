@@ -1,0 +1,27 @@
+#!/usr/bin/env perl
+
+use 5.010;
+use strict;
+use warnings;
+
+use File::Slurper qw(read_text);
+
+binmode STDOUT, ":utf8";
+
+my @w;
+my %mem;
+
+for my $file (<../devdata/*:*>) {
+    my $ct = read_text($file);
+
+    # proverbs listed under hanzi looks like traditional form, we only want
+    # traditional form, so we remove them
+    $ct =~ s!<h3>一</h3>.+!!s;
+
+    while ($ct =~ m!^<li><a href="/wiki[^>]+>(.+?)</a></li>!gm) {
+        next if $mem{$1}++;
+        push @w, $1;
+    }
+}
+
+say for sort @w;
